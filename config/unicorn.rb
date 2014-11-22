@@ -1,9 +1,14 @@
 # http://michaelvanrooijen.com/articles/2011/06/01-more-concurrency-on-a-single-heroku-dyno-with-the-new-celadon-cedar-stack/
+#APP_PATH = "/var/www/applications/errbit/shared"
+APP_PATH = "/komal/james/errbit"
 
+stderr_path APP_PATH + "/log/unicorn.stderr.log"
+stdout_path APP_PATH + "/log/unicorn.stderr.log"
+#pid APP_PATH + "/pids/unicorn.pid"
 worker_processes 3 # amount of unicorn workers to spin up
 timeout 30         # restarts workers that hang for 30 seconds
 preload_app true
-
+#listen "107.170.199.219:5000"
 # Taken from github: https://github.com/blog/517-unicorn
 # Though everyone uses pretty miuch the same code
 before_fork do |server, worker|
@@ -17,8 +22,9 @@ before_fork do |server, worker|
   # we send it a QUIT.
   #
   # Using this method we get 0 downtime deploys.
- 
-  old_pid = "#{server.config[:pid]}.oldbin"
+  pid "#{server.config[:pids]}/unicorn.pid"
+
+  old_pid = "#{server.config[:pids]}.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)

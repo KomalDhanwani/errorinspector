@@ -12,7 +12,7 @@ Errbit::Application.configure do
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
-
+  config.secret_token = "99f03d7658f2330e9de5c8d0afcdfd091f9f80b2451fab5ecd7a824660774fcb35cda2c26ce2087efd96ab8d7048ba05fee6052296f0d8e41751aa1ba7137e62"
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
