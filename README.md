@@ -1,0 +1,4 @@
+errorinspector
+==============
+
+Inspect errors
